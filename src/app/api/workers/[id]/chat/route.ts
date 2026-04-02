@@ -18,7 +18,7 @@ export async function POST(
     }
 
     const result = await runWorker(id, { message, channel });
-    return NextResponse.json(result);
+    return NextResponse.json({ reply: result.reply });
   } catch (error) {
     const msg = error instanceof Error ? error.message : "Internal error";
     return NextResponse.json({ error: msg }, { status: 500 });
