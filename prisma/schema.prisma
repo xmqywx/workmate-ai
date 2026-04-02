@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Template {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  name         String
+  nameZh       String
+  description  String
+  industry     String
+  icon         String
+  systemPrompt String
+  configSchema String   // JSON string of ConfigField[]
+  createdAt    DateTime @default(now())
+  workers      Worker[]
+}
+
+model Worker {
+  id         String    @id @default(cuid())
+  name       String
+  templateId String
+  template   Template  @relation(fields: [templateId], references: [id])
+  config     String    @default("{}") // JSON string
+  status     String    @default("active")
+  apiKey     String    @unique @default(cuid())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  messages   Message[]
+  documents  Document[]
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  workerId  String
+  worker    Worker   @relation(fields: [workerId], references: [id])
+  role      String
+  content   String
+  channel   String   @default("web")
+  metadata  String?  // JSON string
+  createdAt DateTime @default(now())
+}
+
+model Document {
+  id        String   @id @default(cuid())
+  workerId  String
+  worker    Worker   @relation(fields: [workerId], references: [id])
+  filename  String
+  content   String
+  createdAt DateTime @default(now())
+}
