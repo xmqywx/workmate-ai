@@ -19,6 +19,7 @@ const industryLabels: Record<string, string> = {
   trade: "外贸",
   legal: "法务",
   property: "物业",
+  realestate: "房产",
   education: "教育",
   healthcare: "医疗",
 };
