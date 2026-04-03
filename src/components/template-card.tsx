@@ -22,6 +22,7 @@ const industryLabels: Record<string, string> = {
   realestate: "房产",
   education: "教育",
   healthcare: "医疗",
+  food: "餐饮",
 };
 
 export function TemplateCard({

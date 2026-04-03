@@ -6,6 +6,7 @@ import propertyManagement from "./property-management";
 import realEstate from "./real-estate";
 import education from "./education";
 import clinic from "./clinic";
+import restaurant from "./restaurant";
 
 export const templates: TemplateConfig[] = [
   ecommerceCs,
@@ -15,6 +16,7 @@ export const templates: TemplateConfig[] = [
   realEstate,
   education,
   clinic,
+  restaurant,
 ];
 
 export function getTemplate(slug: string): TemplateConfig | undefined {
