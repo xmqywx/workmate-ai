@@ -30,8 +30,13 @@ export default function Home() {
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           选择行业模板，上传你的业务数据，AI员工立即上岗。
-          替代80%重复工作，月费仅几百元。
+          替代80%重复工作，不请假不离职。
         </p>
+        <div className="flex justify-center gap-3 mt-6 text-sm">
+          <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full">免费体验 50次/月</span>
+          <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">基础版 ¥199/月</span>
+          <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">专业版 ¥599/月</span>
+        </div>
       </div>
 
       <h2 className="text-2xl font-semibold mb-6">选择行业模板</h2>
