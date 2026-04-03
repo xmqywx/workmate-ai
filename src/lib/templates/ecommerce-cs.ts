@@ -6,7 +6,7 @@ const ecommerceCs: TemplateConfig = {
   nameZh: "电商客服助手",
   description: "AI customer service agent for e-commerce: product inquiries, order tracking, returns and refunds.",
   industry: "ecommerce",
-  icon: "ShoppingCart",
+  icon: "🛒",
   systemPrompt: `你是一位专业的电商客服助手。请以热情、友好的语气回答顾客的问题。
 
 ## 服务原则

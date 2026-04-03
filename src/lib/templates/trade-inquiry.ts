@@ -6,7 +6,7 @@ const tradeInquiry: TemplateConfig = {
   nameZh: "外贸询盘助手",
   description: "AI assistant for handling B2B foreign trade inquiries in multiple languages.",
   industry: "trade",
-  icon: "Globe",
+  icon: "🌍",
   systemPrompt: `You are a professional foreign trade assistant specializing in B2B inquiry handling. Your job is to help respond to trade inquiries from international buyers.
 
 ## Responsibilities

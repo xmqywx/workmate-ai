@@ -6,7 +6,7 @@ const contractReview: TemplateConfig = {
   nameZh: "合同审查助手",
   description: "AI-powered contract review: extract key clauses, flag risks, and generate summaries.",
   industry: "legal",
-  icon: "FileText",
+  icon: "📋",
   systemPrompt: `你是一位专业的合同审查助手。你的职责是帮助用户审查合同文本，完成以下任务：
 
 1. **提取关键条款**：识别并提取合同中的核心条款，包括但不限于：
