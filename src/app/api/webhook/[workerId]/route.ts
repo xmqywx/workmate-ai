@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { runWorker } from "@/lib/worker-engine";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function POST(
   req: NextRequest,
@@ -32,6 +33,14 @@ export async function POST(
       return NextResponse.json(
         { error: "message is required" },
         { status: 400 }
+      );
+    }
+
+    const { allowed } = checkRateLimit(workerId);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "Rate limit exceeded (50/hour)" },
+        { status: 429 }
       );
     }
 
