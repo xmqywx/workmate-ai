@@ -16,7 +16,8 @@ export async function chat(
   messages: ChatCompletionMessageParam[],
   options: ChatOptions = {},
 ): Promise<string> {
-  const { temperature = 0.7, maxTokens = 2048, model = "deepseek-chat" } = options;
+  const defaultModel = process.env.AI_MODEL ?? "deepseek-chat";
+  const { temperature = 0.7, maxTokens = 2048, model = defaultModel } = options;
 
   const response = await client.chat.completions.create({
     model,
