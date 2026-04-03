@@ -3,6 +3,7 @@
 import { useEffect, useState, use } from "react";
 import { ChatInterface } from "@/components/chat-interface";
 import { LogViewer } from "@/components/log-viewer";
+import { StatsDashboard } from "@/components/stats-dashboard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -23,7 +24,7 @@ export default function WorkerDetailPage({
 }) {
   const { workerId } = use(params);
   const [worker, setWorker] = useState<Worker | null>(null);
-  const [tab, setTab] = useState<"chat" | "logs">("chat");
+  const [tab, setTab] = useState<"chat" | "logs" | "stats">("chat");
 
   useEffect(() => {
     fetch("/api/workers")
@@ -112,12 +113,21 @@ export default function WorkerDetailPage({
         >
           执行日志
         </Button>
+        <Button
+          variant={tab === "stats" ? "default" : "outline"}
+          size="sm"
+          onClick={() => setTab("stats")}
+        >
+          数据统计
+        </Button>
       </div>
 
       {tab === "chat" ? (
         <ChatInterface workerId={workerId} />
-      ) : (
+      ) : tab === "logs" ? (
         <LogViewer workerId={workerId} />
+      ) : (
+        <StatsDashboard workerId={workerId} />
       )}
     </div>
   );
