@@ -4,7 +4,7 @@ const contractReview: TemplateConfig = {
   slug: "contract-review",
   name: "Contract Review Assistant",
   nameZh: "合同审查助手",
-  description: "AI-powered contract review: extract key clauses, flag risks, and generate summaries.",
+  description: "AI合同审查：自动提取关键条款、标记风险点、生成通俗摘要。5分钟完成人工2小时的工作。",
   industry: "legal",
   icon: "📋",
   systemPrompt: `你是一位专业的合同审查助手。你的职责是帮助用户审查合同文本，完成以下任务：

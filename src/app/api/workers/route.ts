@@ -3,13 +3,29 @@ import prisma from "@/lib/db";
 
 export async function GET() {
   const workers = await prisma.worker.findMany({
-    include: {
-      template: true,
+    select: {
+      id: true,
+      name: true,
+      status: true,
+      apiKey: true,
+      createdAt: true,
+      updatedAt: true,
+      template: {
+        select: { nameZh: true, icon: true, industry: true },
+      },
       _count: { select: { messages: true } },
     },
     orderBy: { createdAt: "desc" },
   });
-  return NextResponse.json(workers);
+
+  // Mask API keys - only show last 6 chars
+  const masked = workers.map((w) => ({
+    ...w,
+    apiKeyPreview: "****" + w.apiKey.slice(-6),
+    apiKey: undefined,
+  }));
+
+  return NextResponse.json(masked);
 }
 
 export async function POST(req: NextRequest) {
@@ -30,10 +46,18 @@ export async function POST(req: NextRequest) {
         templateId,
         config: config ? JSON.stringify(config) : "{}",
       },
-      include: { template: true },
     });
 
-    return NextResponse.json(worker, { status: 201 });
+    // Return full apiKey only on creation (user needs to save it)
+    return NextResponse.json(
+      {
+        id: worker.id,
+        name: worker.name,
+        apiKey: worker.apiKey,
+        message: "请保存你的API Key，它不会再次显示完整版本。",
+      },
+      { status: 201 }
+    );
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to create worker" },

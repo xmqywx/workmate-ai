@@ -10,7 +10,7 @@ interface Worker {
   id: string;
   name: string;
   status: string;
-  apiKey: string;
+  apiKeyPreview: string;
   createdAt: string;
   template: { nameZh: string; icon: string };
   _count: { messages: number };
@@ -66,7 +66,7 @@ export default function WorkerDetailPage({
           POST /api/webhook/{worker.id}
         </code>{" "}
         <span className="text-muted-foreground">
-          Header: X-API-Key: {worker.apiKey.slice(0, 8)}...
+          Header: X-API-Key: {worker.apiKeyPreview}
         </span>
       </div>
 
