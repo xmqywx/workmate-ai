@@ -70,7 +70,34 @@ export default function WorkerDetailPage({
         </span>
       </div>
 
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-4 flex-wrap">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={async () => {
+            const newStatus = worker.status === "active" ? "paused" : "active";
+            await fetch(`/api/workers/${workerId}`, {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ status: newStatus }),
+            });
+            setWorker({ ...worker, status: newStatus });
+          }}
+        >
+          {worker.status === "active" ? "暂停" : "恢复"}
+        </Button>
+        <Button
+          variant="destructive"
+          size="sm"
+          onClick={async () => {
+            if (!confirm("确定删除该AI员工？所有对话记录将丢失。")) return;
+            await fetch(`/api/workers/${workerId}`, { method: "DELETE" });
+            window.location.href = "/dashboard";
+          }}
+        >
+          删除
+        </Button>
+        <div className="flex-1" />
         <Button
           variant={tab === "chat" ? "default" : "outline"}
           size="sm"

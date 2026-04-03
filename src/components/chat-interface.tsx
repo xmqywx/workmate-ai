@@ -23,6 +23,25 @@ export function ChatInterface({
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Load chat history on mount
+  useEffect(() => {
+    fetch(`/api/workers/${workerId}/logs`)
+      .then((r) => r.json())
+      .then((logs: { role: string; content: string }[]) => {
+        if (Array.isArray(logs) && logs.length > 0) {
+          const history = logs
+            .reverse()
+            .filter((l) => l.role === "user" || l.role === "assistant")
+            .map((l) => ({
+              role: l.role as "user" | "assistant",
+              content: l.content,
+            }));
+          setMessages(history);
+        }
+      })
+      .catch(() => {});
+  }, [workerId]);
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);

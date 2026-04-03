@@ -59,6 +59,16 @@ export default function CreateWorkerPage({
 
   async function handleCreate() {
     if (!template || !workerName) return;
+
+    // Validate required fields
+    const missingFields = fields
+      .filter((f) => f.required && f.type !== "file" && !config[f.key])
+      .map((f) => f.labelZh);
+    if (missingFields.length > 0) {
+      alert(`请填写必填项：${missingFields.join("、")}`);
+      return;
+    }
+
     setCreating(true);
 
     try {
